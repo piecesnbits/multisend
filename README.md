@@ -1,3 +1,6 @@
+
+![kkk](https://github.com/piecesnbits/multisend/assets/44613132/292ea5e7-5be2-45ef-9801-5955082f5fa2)
+
 # bera helper payer
 
 Basic script to pay helpers from the berachain ecosystem. This script works in conjunction with a contract (currently) deployed on the berachain artio testnet. Node.js is required to run the script.
