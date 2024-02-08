@@ -69,22 +69,27 @@ class MultiSend {
     }
   }
   async batchpay(batch_addresses) {
-    await this.updateGasPrice();
-    const tx = await this.MultiSend_Contract.pay(batch_addresses, ethers.utils.parseEther(String(this.payment_amount)), {
-      value: 0,
-      gasPrice: this.gasPriceWei,
-      gasLimit: 50000 * batch_addresses.length,
-    });
-    console.log(yellow(`Payment for ${batch_addresses.length} addresses sent waiting for confirmation...`));
-    const receipt = await tx.wait();
-    if (receipt.status === 1) {
-      console.log(green(`Success`), grey(`${receipt.transactionHash}`));
-      this.log_file.write(`[SUCCES] [${receipt.transactionHash}]` + "\n");
-    } else {
-      console.log(red("Payment failed. Transaction reverted."));
-      this.log_file.write(`[FAILED]` + "\n");
+    try {
+      await this.updateGasPrice();
+      const tx = await this.MultiSend_Contract.pay(batch_addresses, ethers.utils.parseEther(String(this.payment_amount)), {
+        value: 0,
+        gasPrice: this.gasPriceWei,
+        gasLimit: 50000 * batch_addresses.length,
+      });
+      console.log(yellow(`Payment for ${batch_addresses.length} addresses sent waiting for confirmation...`));
+      const receipt = await tx.wait();
+      if (receipt.status === 1) {
+        console.log(green(`Success`), grey(`${receipt.transactionHash}`));
+        this.log_file.write(`[SUCCES] [${receipt.transactionHash}]` + "\n");
+      } else {
+        console.log(red("Payment failed. Transaction reverted."));
+        this.log_file.write(`[FAILED]` + "\n");
+      }
+      this.log_file.write(JSON.stringify(batch_addresses) + "\n\n");
+    } catch (error) {
+      console.log(red("unexpected error"));
+      this.log_file.write("[unexpected error]", JSON.stringify(batch_addresses) + "\n\n");
     }
-    this.log_file.write(JSON.stringify(batch_addresses) + "\n\n");
   }
   async updateGasPrice() {
     this.gasPriceWei = await wallet.provider.getGasPrice();
