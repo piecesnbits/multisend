@@ -1,0 +1,16 @@
+{
+  "name": "pay",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "console-log-colors": "^0.4.0",
+    "dotenv": "^16.4.1",
+    "ethers": "^5.7.2"
+  }
+}
