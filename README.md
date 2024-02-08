@@ -12,7 +12,7 @@ npm install
 
 ### Configuration
 
-Add your private key in `.env.example` and rename the file to `.env`. Configure the recipient list, payment_amount and batch_size in index.js.
+Add your private key in `.env.example` and rename the file to `.env`. Configure the recipient_list, payment_amount and batch_size in index.js.
 
 ### Transfer payments
 
